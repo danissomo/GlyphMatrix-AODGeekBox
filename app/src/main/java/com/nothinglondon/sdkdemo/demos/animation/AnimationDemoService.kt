@@ -1,15 +1,8 @@
 package com.nothinglondon.sdkdemo.demos.animation
 
 import android.content.Context
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
-import android.os.Messenger
-import android.util.Log
 import com.nothing.ketchum.Common
 import com.nothing.ketchum.GlyphMatrixManager
-import com.nothing.ketchum.GlyphToy
 import com.nothinglondon.sdkdemo.demos.GlyphMatrixService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
