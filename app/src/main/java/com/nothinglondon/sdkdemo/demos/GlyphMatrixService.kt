@@ -10,6 +10,7 @@ import android.os.Looper
 import android.os.Message
 import android.os.Messenger
 import android.util.Log
+import com.nothing.ketchum.Common
 import com.nothing.ketchum.Glyph
 import com.nothing.ketchum.GlyphMatrixManager
 import com.nothing.ketchum.GlyphToy
@@ -51,7 +52,11 @@ abstract class GlyphMatrixService(private val tag: String) : Service() {
         override fun onServiceConnected(p0: ComponentName?) {
             glyphMatrixManager?.let { gmm ->
                 Log.d(LOG_TAG, "$tag: onServiceConnected")
-                gmm.register(Glyph.DEVICE_23112)
+                if (Common.is23112()){
+                    gmm.register(Glyph.DEVICE_23112)
+                } else if(Common.is25111p())  {
+                    gmm.register(Glyph.DEVICE_25111p)
+                }
                 performOnServiceConnected(applicationContext, gmm)
             }
         }
