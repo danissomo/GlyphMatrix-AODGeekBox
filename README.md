@@ -11,7 +11,7 @@ This project is a collection of Glyph Matrix toys and tools:
 - `Liquid Simulation` - Physics-based liquid simulation
 - `Ultimate Essential Key` - Switch between modes using the Essential Key
 
-![ex](images/img.png)
+<img src="images/img.png" alt="drawing" width="200"/>
 
 After going through the `Setup` stage in this document the project can be run on the device.
 > Tip: `Short-press` the `Glyph Button` to navigate between the toys.
