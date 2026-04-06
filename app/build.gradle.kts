@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.nothinglondon.sdkdemo"
+    namespace = "com.danissimo.glyphgeekbox"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.nothinglondon.sdkdemo"
+        applicationId = "com.danissimo.glyphgeekbox"
         minSdk = 34
         targetSdk = 35
         versionCode = 1

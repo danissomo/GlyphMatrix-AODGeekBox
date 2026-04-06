@@ -4,6 +4,8 @@
 
     <!-- This permission is required to be able access the Glyph Matrix -->
     <uses-permission android:name="com.nothing.ketchum.permission.ENABLE" />
+    <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -31,28 +33,18 @@
             </intent-filter>
         </activity>
 
-        <!-- Basic Demo Service -->
         <service
-            android:name=".demos.basic.BasicDemoService"
-            android:exported="true"
-            tools:ignore="ExportedService">
+            android:name=".EssentialKeyAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
+                <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-
             <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_basic" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/basic_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_basic" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.longpress"
-                android:value="1" />
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
         </service>
+
 
         <!-- Animation Demo Service -->
         <service
@@ -73,16 +65,13 @@
                 android:name="com.nothing.glyph.toy.summary"
                 android:resource="@string/toy_summary_animation" />
             <meta-data
-                android:name="com.nothing.glyph.toy.longpress"
-                android:value="1" />
-            <meta-data
                 android:name="com.nothing.glyph.toy.aod_support"
                 android:value="1"/>
         </service>
 
-        <!-- Glyph Button Demo Service -->
+        <!-- Bad Apple Service -->
         <service
-            android:name=".demos.glyphbutton.GlyphButtonDemoService"
+            android:name=".demos.animation.BadAppleService"
             android:exported="true"
             tools:ignore="ExportedService">
             <intent-filter>
@@ -91,16 +80,108 @@
 
             <meta-data
                 android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_glyph_button" />
+                android:resource="@string/toy_name_bad_apple" />
             <meta-data
                 android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/glyphbutton_numbnail" />
+                android:resource="@drawable/badapple_thumbnail" />
             <meta-data
                 android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_glyph_button" />
+                android:resource="@string/toy_summary_bad_apple" />
             <meta-data
-                android:name="com.nothing.glyph.toy.longpress"
-                android:value="1" />
+                android:name="com.nothing.glyph.toy.aod_support"
+                android:value="1"/>
+        </service>
+
+        <!-- Animation Perlin Noise Service -->
+        <service
+            android:name=".demos.animation.PerlNoiseService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.nothing.glyph.TOY" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.nothing.glyph.toy.name"
+                android:resource="@string/toy_name_perlin" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.image"
+                android:resource="@drawable/perlin_thumbnail" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.summary"
+                android:resource="@string/toy_summary_perlin" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.aod_support"
+                android:value="1"/>
+        </service>
+
+        <!-- Animation Game Of Life Service -->
+        <service
+            android:name=".demos.animation.GameOfLifeService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.nothing.glyph.TOY" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.nothing.glyph.toy.name"
+                android:resource="@string/toy_name_game_of_life" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.image"
+                android:resource="@drawable/game_of_life_thumbnail" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.summary"
+                android:resource="@string/toy_summary_game_of_life" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.aod_support"
+                android:value="1"/>
+        </service>
+
+        <!-- Animation Liquid Simulation Service -->
+        <service
+            android:name=".demos.animation.LiquidSimulationService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.nothing.glyph.TOY" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.nothing.glyph.toy.name"
+                android:resource="@string/toy_name_liquid_simulation" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.image"
+                android:resource="@drawable/liquid_sim_thumbnail" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.summary"
+                android:resource="@string/toy_summary_liquid_simulation" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.aod_support"
+                android:value="1"/>
+        </service>
+
+        <!-- Animation Ultimate Key Service -->
+        <service
+            android:name=".demos.UltimateKeyService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.nothing.glyph.TOY" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.nothing.glyph.toy.name"
+                android:resource="@string/toy_name_ultimate_key" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.image"
+                android:resource="@drawable/ultimate_essential_thumbnail" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.summary"
+                android:resource="@string/toy_summary_ultimate_key" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.aod_support"
+                android:value="1"/>
         </service>
 
     </application>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nothing Android SDK Demo</string>
+    <string name="app_name">Glyph GeekBox</string>
 
     <string name="toy_name_basic">Basic Demo</string>
     <string name="toy_summary_basic">Displays a basic image on the matrix.</string>
@@ -7,6 +7,23 @@
     <string name="toy_name_animation">Animation Demo</string>
     <string name="toy_summary_animation">Animates the glyph matrix.</string>
 
+    <string name="toy_name_bad_apple">Bad Apple</string>
+    <string name="toy_summary_bad_apple">AOD bad apple animation</string>
+
+    <string name="toy_name_perlin">Perlin Noise</string>
+    <string name="toy_summary_perlin">Just a perlin noise</string>
+
+    <string name="toy_name_game_of_life">Game of Life</string>
+    <string name="toy_summary_game_of_life">Game of Life animation</string>
+
+    <string name="toy_name_liquid_simulation">Liquid Simulation</string>
+    <string name="toy_summary_liquid_simulation">Crappy liquid simulation. Buggy :3</string>
+
+    <string name="toy_name_ultimate_key">Ultimate Essential Key</string>
+    <string name="toy_summary_ultimate_key">Switch between modes by Essential Key. Accessibility Settings!</string>
+
     <string name="toy_name_glyph_button">Glyph Button Demo</string>
     <string name="toy_summary_glyph_button">Activates the glyph matrix when the glyph button is pressed.</string>
+
+    <string name="accessibility_service_description">Service to react to Essential Key (TV_INPUT_COMPONENT_2).</string>
 </resources>
