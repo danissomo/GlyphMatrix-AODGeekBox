@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.util.Log
 import com.nothing.ketchum.GlyphMatrixManager
 import com.danissimo.glyphgeekbox.demos.animation.*
+import com.danissimo.glyphgeekbox.games.*
 
 /**
  * Обертка-хост, которая переключает логику между существующими сервисами анимаций.
@@ -15,7 +16,6 @@ import com.danissimo.glyphgeekbox.demos.animation.*
 class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
 
     private var matrixManager: GlyphMatrixManager? = null
-    private var currentMode = 0
     
     // Текущий активный "контроллер" логики
     private var currentLogicController: GlyphMatrixService? = null
@@ -57,7 +57,7 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
         stopCurrentLogic()
         
         // 2. Инкрементируем режим
-        currentMode = (currentMode + 1) % 5
+        currentMode = (currentMode + 1) % 6
         
         // 3. Очищаем матрицу
         gmm.turnOff()
@@ -76,9 +76,9 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
             2 -> GameOfLifeService()
             3 -> LiquidSimulationService()
             4 -> PerlNoiseService()
+            5 -> PongService()
             else -> AnimationDemoService()
         }
-
         Log.d("UltimateKeyService", "Started NEW instance of: ${currentLogicController?.javaClass?.simpleName}")
         currentLogicController?.performOnServiceConnected(this, gmm)
     }
@@ -93,5 +93,8 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
 
     companion object {
         const val ACTION_SWITCH_MODE = "com.nothinglondon.sdkdemo.SWITCH_MODE"
+        
+        // Глобальная переменная (статическая), чтобы сохранять выбранный контроллер при пересоздании сервиса
+        private var currentMode = 0
     }
 }

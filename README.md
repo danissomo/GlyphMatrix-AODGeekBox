@@ -1,6 +1,8 @@
 Glyph GeekBox
 ====================
 
+Target: Nothing Phone 4a pro
+
 About the App
 --------------
 This project is a collection of Glyph Matrix toys and tools:
@@ -10,18 +12,23 @@ This project is a collection of Glyph Matrix toys and tools:
 - `Game of Life` - Conway's Game of Life
 - `Liquid Simulation` - Physics-based liquid simulation
 - `Ultimate Essential Key` - Switch between modes using the Essential Key
+- `Pong` - circular pong game
 
-<img src="images/img.png" alt="drawing" width="200"/>
-
-After going through the `Setup` stage in this document the project can be run on the device.
-> Tip: `Short-press` the `Glyph Button` to navigate between the toys.
-
-The project utilizes the GlyphMatrix SDK to interact with the device's Glyph interface.
-
-This app is written in Kotlin and utilizes a `GlyphMatrixService.kt` wrapper for easier SDK integration.
-
-Requirements
---------------
-Android Studio, Kotlin, compatible device with Glyph Matrix
+<img src="images/img.jpg" alt="drawing" width="200"/>
 
 
+# Ultimate Essential Key
+
+1. You need to disable official essential apps to free up the Essential Key:
+```shell
+adb shell pm disable-user --user 0 com.nothing.ntessentialspace
+adb shell pm disable-user --user 0 com.nothing.ntessentialrecorder
+```
+
+2. Enable this app in Accessibility settings to allow it to intercept the Essential Key:
+
+<p align="center">
+  <img src="images/acc_1.jpg" width="250" />
+  <img src="images/acc_2.jpg" width="250" />
+  <img src="images/acc_3.jpg" width="250" />
+</p>

@@ -121,16 +121,10 @@ class LiquidSimulationService : GlyphMatrixService("Liquid-Simulation"), SensorE
                 } else {
                     val zSurface = abs(rhs / nz)
                     zSurface.coerceIn(0.0f, 1.0f)
-//                    if (nz <= 0) {
-//                        // Gravity pulls towards Z=1 (body). Liquid fills [zSurface, 1]
-//                        (1.0f - zSurface).coerceIn(0.0f, 1.0f)
-//                    } else {
-//                        // Gravity pulls towards Z=0 (glass). Liquid fills [0, zSurface]
-//                        zSurface.coerceIn(0.0f, 1.0f)
-//                    }
+
                 }
 
-                frame[yOffset + x] = (fill * 255).toInt().coerceIn(0, 255)
+                frame[yOffset + x] = (fill * 1024).toInt().coerceIn(0, 1024)
             }
         }
         

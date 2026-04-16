@@ -87,7 +87,7 @@ class GameOfLifeService : GlyphMatrixService("Game of Life") {
         val frame = IntArray(WIDTH * HEIGHT)
         for (y in 0 until HEIGHT) {
             for (x in 0 until WIDTH) {
-                frame[y * WIDTH + x] = if (grid[y][x] == 1) 255 else 0
+                frame[y * WIDTH + x] = if (grid[y][x] == 1) 1024 else 0
             }
         }
         return frame

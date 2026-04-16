@@ -22,8 +22,23 @@
     <string name="toy_name_ultimate_key">Ultimate Essential Key</string>
     <string name="toy_summary_ultimate_key">Switch between modes by Essential Key. Accessibility Settings!</string>
 
-    <string name="toy_name_glyph_button">Glyph Button Demo</string>
-    <string name="toy_summary_glyph_button">Activates the glyph matrix when the glyph button is pressed.</string>
+    <string name="toy_name_pong">Pong</string>
+    <string name="toy_summary_pong">Pong</string>
+
+    <string name="toy_name_white_noise">White Noise</string>
+    <string name="toy_summary_white_noise">Random noise generator</string>
 
     <string name="accessibility_service_description">Service to react to Essential Key (TV_INPUT_COMPONENT_2).</string>
+
+    <string name="setup_guide_title">Setup Guide</string>
+    <string name="setup_step_1_title">1. Disable official apps</string>
+    <string name="setup_step_1_desc">You need to disable official essential apps to free up the Essential Key. Run these commands via ADB:</string>
+    <string name="setup_adb_command_1">adb shell pm disable-user --user 0 com.nothing.ntessentialspace</string>
+    <string name="setup_adb_command_2">adb shell pm disable-user --user 0 com.nothing.ntessentialrecorder</string>
+    <string name="setup_step_2_title">2. Enable Accessibility Service</string>
+    <string name="setup_step_2_desc">Enable "Glyph GeekBox" in Accessibility settings to allow it to intercept the Essential Key.</string>
+    <string name="open_accessibility_settings">Open Accessibility Settings</string>
+
+    <string name="mini_apps_title">Available Toys &amp; Tools</string>
+    <string name="widget_label">Glyph AOD Settings</string>
 </resources>

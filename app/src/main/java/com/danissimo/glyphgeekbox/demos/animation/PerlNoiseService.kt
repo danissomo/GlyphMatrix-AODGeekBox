@@ -51,7 +51,7 @@ class PerlNoiseService : GlyphMatrixService("Perlin-Noise") {
             for (x in 0 until WIDTH) {
                 val n = perlin.noise(x * scale, y * scale, z)
                 // Map Perlin noise range [-1, 1] to Glyph brightness range [0, 100]
-                val brightness = ((n + 1.0) * 0.5 * 255.0).toInt().coerceIn(0, 255)
+                val brightness = 256*((n + 1.0) * 0.5 * 4).toInt().coerceIn(0, 4)
                 matrix[y * WIDTH + x] = brightness
             }
         }

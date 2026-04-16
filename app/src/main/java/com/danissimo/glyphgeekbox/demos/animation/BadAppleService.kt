@@ -59,7 +59,8 @@ class BadAppleService : GlyphMatrixService("Bad-apple-demo") {
                 val frameObj = framesArray.getJSONObject(i)
                 val duration = frameObj.optLong("d", 50L)
                 val pArray = frameObj.getJSONArray("p")
-                val pixels = IntArray(pArray.length()) { j -> pArray.getInt(j) }
+                val pixels = IntArray(pArray.length()) { j -> pArray.getInt(j) }.map{p -> (1024*p/255f).toInt()}.toTypedArray().toIntArray()
+
                 duration to pixels
             }
         } catch (_: Exception) {

@@ -51,7 +51,7 @@ class AnimationDemoService : GlyphMatrixService("Animation-Demo") {
             val angle = Math.toRadians(i * ANGLE_PER_PIXEL_DEGREES + shiftAmount)
             val value = sin(angle)
             val row = (value * HALF_HEIGHT).toInt() + MID_POINT
-            grid[row * WIDTH + i.toInt()] = 255
+            grid[row * WIDTH + i.toInt()] = 1024
         }
         return grid.toIntArray()
     }

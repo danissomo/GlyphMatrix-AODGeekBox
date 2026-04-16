@@ -13,6 +13,7 @@ import android.util.Log
 import com.nothing.ketchum.Common
 import com.nothing.ketchum.Glyph
 import com.nothing.ketchum.GlyphMatrixManager
+import com.nothing.ketchum.GlyphManager
 import com.nothing.ketchum.GlyphToy
 
 abstract class GlyphMatrixService(private val tag: String) : Service() {

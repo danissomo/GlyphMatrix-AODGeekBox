@@ -21,6 +21,7 @@ class EssentialKeyAccessibilityService : AccessibilityService() {
         private const val TAG = "EssentialKeyService"
         private const val DOUBLE_CLICK_TIMEOUT = 300L
         private const val LONG_PRESS_TIMEOUT = 500L
+        const val ACTION_SINGLE_CLICK = "com.danissimo.glyphgeekbox.SINGLE_CLICK"
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -77,6 +78,10 @@ class EssentialKeyAccessibilityService : AccessibilityService() {
 
     private fun onSingleClick() {
         Log.d(TAG, "Detected: Single Click")
+        val intent = Intent(ACTION_SINGLE_CLICK).apply {
+            `package` = packageName
+        }
+        sendBroadcast(intent)
     }
 
     private fun onDoubleClick() {
@@ -87,7 +92,6 @@ class EssentialKeyAccessibilityService : AccessibilityService() {
         Log.d(TAG, "Detected: Long Press -> Switching UltimateKeyService mode")
         // Отправляем Broadcast для переключения режима в UltimateKeyService
         val intent = Intent(UltimateKeyService.ACTION_SWITCH_MODE).apply {
-            // Для Android 14+ важно указать пакет или сделать приемник экспортируемым
             `package` = packageName
         }
         sendBroadcast(intent)
