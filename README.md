@@ -1,6 +1,8 @@
 Glyph GeekBox
 ====================
 
+![Android CI](https://github.com/danissomo/GlyphMatrix-AODGeekBox/actions/workflows/android.yml/badge.svg)
+
 Target: Nothing Phone 4a pro
 
 About the App
@@ -11,6 +13,8 @@ This project is a collection of Glyph Matrix toys and tools:
 - `Perlin Noise` - Just a perlin noise animation
 - `Game of Life` - Conway's Game of Life
 - `Liquid Simulation` - Physics-based liquid simulation
+- `Mandelbrot` - Mandelbrot set visualization
+- `White Noise` - Random white noise animation
 - `Ultimate Essential Key` - Switch between modes using the Essential Key
 - `Pong` - circular pong game
 
