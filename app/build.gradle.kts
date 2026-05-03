@@ -50,6 +50,10 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(files("libs/glyph-matrix-sdk-2.0.aar"))
+
+    // Reorderable list library
+    implementation("sh.calvin.reorderable:reorderable:3.1.0")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

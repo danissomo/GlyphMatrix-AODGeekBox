@@ -8,25 +8,14 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +28,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.danissimo.glyphgeekbox.ui.UltimateSettingsActivity
 import com.danissimo.glyphgeekbox.ui.theme.NothingAndroidSDKDemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -58,7 +48,8 @@ class MainActivity : ComponentActivity() {
 data class MiniApp(
     val nameRes: Int,
     val descriptionRes: Int,
-    val iconRes: Int
+    val iconRes: Int,
+    val onSettingsClick: (() -> Unit)? = null
 )
 
 @Composable
@@ -74,7 +65,11 @@ fun SetupGuideScreen(modifier: Modifier = Modifier) {
         MiniApp(R.string.toy_name_liquid_simulation, R.string.toy_summary_liquid_simulation, R.drawable.liquid_sim_thumbnail),
         MiniApp(R.string.toy_name_pong, R.string.toy_summary_pong, R.drawable.pong_thumbnail),
         MiniApp(R.string.toy_name_white_noise, R.string.toy_summary_white_noise, R.drawable.white_noise_thumbnail),
-        MiniApp(R.string.toy_name_ultimate_key, R.string.toy_summary_ultimate_key, R.drawable.ultimate_essential_thumbnail),
+        MiniApp(R.string.toy_name_mandelbrot, R.string.toy_summary_mandelbrot, R.drawable.mandelbrot_thumbnail),
+        MiniApp(R.string.toy_name_charge, R.string.toy_summary_charge, R.drawable.charge_thumbnail),
+        MiniApp(R.string.toy_name_ultimate_key, R.string.toy_summary_ultimate_key, R.drawable.ultimate_essential_thumbnail) {
+            context.startActivity(Intent(context, UltimateSettingsActivity::class.java))
+        },
     )
 
     Column(
@@ -121,22 +116,20 @@ fun SetupGuideScreen(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
+        
         Button(
             onClick = {
                 try {
-                    val intent = Intent().apply {// Указываем пакет приложения и полное имя класса Activity
+                    val intent = Intent().apply {
                         setClassName(
-                            "com.nothing.thirdparty", // Замените на реальный пакет, если он другой
+                            "com.nothing.thirdparty",
                             "com.nothing.thirdparty.matrix.toys.manager.AodToySelectActivity"
                         )
-                        // Если нужно передать флаги для открытия в новом окне
                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     }
                     context.startActivity(intent)
                 } catch (e: Exception) {
-                    // Если Activity не найдена или доступ запрещен (например, export=false)
                     e.printStackTrace()
-                    // Можно отправить пользователя в общие настройки как запасной вариант
                     context.startActivity(Intent(Settings.ACTION_SETTINGS))
                 }
             },
@@ -194,36 +187,58 @@ fun AdbCommandBox(command: String) {
 
 @Composable
 fun MiniAppItem(app: MiniApp) {
-    Row(
+    Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(enabled = app.onSettingsClick != null) { app.onSettingsClick?.invoke() },
+        shape = RoundedCornerShape(12.dp),
+        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
     ) {
-        Surface(
-            modifier = Modifier.size(56.dp),
-            shape = RoundedCornerShape(12.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant
+        Row(
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Image(
-                painter = painterResource(id = app.iconRes),
-                contentDescription = null,
-                modifier = Modifier.padding(8.dp)
-            )
-        }
-        
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = stringResource(app.nameRes),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = stringResource(app.descriptionRes),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Surface(
+                modifier = Modifier.size(52.dp),
+                shape = RoundedCornerShape(12.dp),
+                color = MaterialTheme.colorScheme.surfaceVariant
+            ) {
+                Image(
+                    painter = painterResource(id = app.iconRes),
+                    contentDescription = null,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+            
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(app.nameRes),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(app.descriptionRes),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+
+            if (app.onSettingsClick != null) {
+                FilledTonalIconButton(
+                    onClick = app.onSettingsClick,
+                    modifier = Modifier.size(40.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Settings",
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
         }
     }
 }

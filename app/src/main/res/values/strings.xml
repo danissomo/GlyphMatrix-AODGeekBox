@@ -28,6 +28,12 @@
     <string name="toy_name_white_noise">White Noise</string>
     <string name="toy_summary_white_noise">Random noise generator</string>
 
+    <string name="toy_name_mandelbrot">Mandelbrot Set</string>
+    <string name="toy_summary_mandelbrot">Mandelbrot set animation</string>
+
+    <string name="toy_name_charge">Charge</string>
+    <string name="toy_summary_charge">Show charge power and percent</string>
+
     <string name="accessibility_service_description">Service to react to Essential Key (TV_INPUT_COMPONENT_2).</string>
 
     <string name="setup_guide_title">Setup Guide</string>
