@@ -21,7 +21,7 @@ This project is a collection of Glyph Matrix toys and tools:
 
 <img src="images/img.jpg" alt="drawing" width="200"/>
 
-![](https://github.com/danissomo/GlyphMatrix-AODGeekBox/blob/main/images/video_demo.mp4)
+![](https://github.com/danissomo/GlyphMatrix-AODGeekBox/raw/refs/heads/main/images/video_demo.mp4)
 
 # Ultimate Essential Key
 
