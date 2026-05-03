@@ -21,8 +21,7 @@ This project is a collection of Glyph Matrix toys and tools:
 
 <img src="images/img.jpg" alt="drawing" width="200"/>
 
-![](https://github.com/user-attachments/assets/85f60a60-66a6-4fd9-8905-6e2827bd5ed0)
-
+<video src="https://github.com/user-attachments/assets/85f60a60-66a6-4fd9-8905-6e2827bd5ed0"></video>
 # Ultimate Essential Key
 
 1. You need to disable official essential apps to free up the Essential Key:
