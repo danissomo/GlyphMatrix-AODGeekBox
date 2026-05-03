@@ -17,9 +17,11 @@ This project is a collection of Glyph Matrix toys and tools:
 - `White Noise` - Random white noise animation
 - `Ultimate Essential Key` - Switch between modes using the Essential Key
 - `Pong` - circular pong game
+- `Charge` - show charging wattage and percent when unplugged
 
 <img src="images/img.jpg" alt="drawing" width="200"/>
 
+![](images/video_demo.mp4)
 
 # Ultimate Essential Key
 
