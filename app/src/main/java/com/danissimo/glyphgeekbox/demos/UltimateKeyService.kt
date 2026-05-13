@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
 import com.danissimo.glyphgeekbox.aod.ChargeService
+import com.danissimo.glyphgeekbox.aod.ScrollingTextService
 import com.nothing.ketchum.GlyphMatrixManager
 import com.danissimo.glyphgeekbox.demos.animation.*
 import com.danissimo.glyphgeekbox.games.*
@@ -105,6 +106,7 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
             "WhiteNoise" -> WhiteNoiseService()
             "Mandelbrot" -> MandelbrotService()
             "Charge" -> ChargeService()
+            "ScrollingText" -> ScrollingTextService()
             else -> AnimationDemoService()
         }
         

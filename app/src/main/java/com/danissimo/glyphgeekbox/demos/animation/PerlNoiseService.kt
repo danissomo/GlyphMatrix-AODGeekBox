@@ -28,7 +28,7 @@ class PerlNoiseService : GlyphMatrixService("Perlin-Noise") {
                 val array = generateNextAnimationFrame()
 
                 withContext(Dispatchers.Main) {
-                    glyphMatrixManager.setMatrixFrame(array)
+                    setMatrixFrame(context, glyphMatrixManager, array)
                 }
 
                 delay(50L) // ~20 FPS

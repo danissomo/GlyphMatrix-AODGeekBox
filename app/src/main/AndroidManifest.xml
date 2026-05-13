@@ -50,6 +50,33 @@
                 android:resource="@xml/aod_widget_info" />
         </receiver>
 
+        <!-- Glyph Matrix Widgets -->
+        <receiver
+            android:name=".GlyphMatrixWidget1x1"
+            android:exported="true"
+            android:label="Glyph Matrix 1x1">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.danissimo.glyphgeekbox.ACTION_UPDATE_WIDGET" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/glyph_matrix_widget_1x1_info" />
+        </receiver>
+
+        <receiver
+            android:name=".GlyphMatrixWidget2x2"
+            android:exported="true"
+            android:label="Glyph Matrix 2x2">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.danissimo.glyphgeekbox.ACTION_UPDATE_WIDGET" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/glyph_matrix_widget_2x2_info" />
+        </receiver>
+
         <service
             android:name=".EssentialKeyAccessibilityService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
@@ -266,6 +293,29 @@
             <meta-data
                 android:name="com.nothing.glyph.toy.summary"
                 android:resource="@string/toy_summary_charge" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.aod_support"
+                android:value="1"/>
+        </service>
+
+        <!-- Scrolling Text Service -->
+        <service
+            android:name=".aod.ScrollingTextService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.nothing.glyph.TOY" />
+            </intent-filter>
+
+            <meta-data
+                android:name="com.nothing.glyph.toy.name"
+                android:resource="@string/toy_name_scrolling_text" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.image"
+                android:resource="@drawable/scrolling_text_thumbnail" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.summary"
+                android:resource="@string/toy_summary_scrolling_text" />
             <meta-data
                 android:name="com.nothing.glyph.toy.aod_support"
                 android:value="1"/>

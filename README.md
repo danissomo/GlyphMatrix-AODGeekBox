@@ -18,10 +18,17 @@ This project is a collection of Glyph Matrix toys and tools:
 - `Ultimate Essential Key` - Switch between modes using the Essential Key
 - `Pong` - circular pong game
 - `Charge` - show charging wattage and percent when unplugged
+- `Scrolling Text` - Say hello, express your feelings!
 
-<img src="images/img.jpg" alt="drawing" width="200"/>
+<p align="center">
+<img src="images/img1.jpg" alt="drawing" width="200"/>
+<img src="images/img2.jpg" alt="drawing" width="200"/>
+<img src="images/img3.jpg" alt="drawing" width="200"/>
+<img src="images/img4.jpg" alt="drawing" width="200"/>
+</p>
 
 <video src="https://github.com/user-attachments/assets/85f60a60-66a6-4fd9-8905-6e2827bd5ed0"></video>
+
 # Ultimate Essential Key
 
 1. You need to disable official essential apps to free up the Essential Key:
@@ -33,7 +40,8 @@ adb shell pm disable-user --user 0 com.nothing.ntessentialrecorder
 2. Enable this app in Accessibility settings to allow it to intercept the Essential Key:
 
 <p align="center">
-  <img src="images/acc_1.jpg" width="250" />
-  <img src="images/acc_2.jpg" width="250" />
-  <img src="images/acc_3.jpg" width="250" />
+  <img src="images/acc_1.jpg" width="200" />
+  <img src="images/acc_2.jpg" width="200" />
+  <img src="images/acc_3.jpg" width="200" />
+  <img src="images/acc_4.jpg" width="200" />
 </p>

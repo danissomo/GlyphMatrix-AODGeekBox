@@ -75,7 +75,7 @@ class UltimateSettingsActivity : ComponentActivity() {
                 "Hold and drag the handle (≡) to reorder. Toggle switches to enable/disable modes in the cycle.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.secondary,
-                modifier = Modifier.padding(bottom = 24.dp)
+                modifier = Modifier.padding(bottom = 16.dp)
             )
 
             LazyColumn(

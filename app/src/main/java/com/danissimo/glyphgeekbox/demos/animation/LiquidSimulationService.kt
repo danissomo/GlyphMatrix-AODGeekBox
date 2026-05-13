@@ -55,7 +55,7 @@ class LiquidSimulationService : GlyphMatrixService("Liquid-Simulation"), SensorE
                 val frame = renderLiquidFrame()
 
                 withContext(Dispatchers.Main) {
-                    glyphMatrixManager.setMatrixFrame(frame)
+                    setMatrixFrame(context, glyphMatrixManager, frame)
                 }
 
                 delay(30L) // 50 FPS

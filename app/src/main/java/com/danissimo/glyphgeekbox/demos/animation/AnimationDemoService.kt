@@ -26,7 +26,7 @@ class AnimationDemoService : GlyphMatrixService("Animation-Demo") {
             while (isActive) {
                 val array = generateNextAnimationFrame()
                 uiScope.launch {
-                    glyphMatrixManager.setMatrixFrame(array)
+                    setMatrixFrame(context, glyphMatrixManager, array)
                 }
                 // wait a bit
                 delay(30)

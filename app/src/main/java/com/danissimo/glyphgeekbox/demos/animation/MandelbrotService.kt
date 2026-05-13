@@ -13,13 +13,12 @@ import kotlinx.coroutines.launch
 import kotlin.math.ln
 import kotlin.math.log10
 import kotlin.math.pow
-import kotlin.random.Random
 
 class MandelbrotService : GlyphMatrixService("Mandelbrot-Smart-Zoom") {
 
     private val backgroundScope = CoroutineScope(Dispatchers.IO)
     private val uiScope = CoroutineScope(Dispatchers.Main)
-    
+
     private var centerX = -0.75
     private var centerY = 0.1
     private var scale = 2.0
@@ -53,7 +52,7 @@ class MandelbrotService : GlyphMatrixService("Mandelbrot-Smart-Zoom") {
             while (isActive) {
                 val array = generateNextAnimationFrame()
                 uiScope.launch {
-                    glyphMatrixManager.setMatrixFrame(array)
+                    setMatrixFrame(context, glyphMatrixManager, array)
                 }
                 delay(40)
             }

@@ -84,19 +84,19 @@ class PongService : GlyphMatrixService("PongGame"), SensorEventListener {
                 updatePhysics()
                 val array = generateNextAnimationFrame()
                 uiScope.launch {
-                    glyphMatrixManager.setMatrixFrame(array)
+                    setMatrixFrame(context, glyphMatrixManager, array)
                 }
 
 
                 }
                 if (curState == APP_STATE.WIN){
-                    glyphMatrixManager.setMatrixFrame(winFrame.render())
+                    setMatrixFrame(context, glyphMatrixManager, winFrame.render())
                     delay(1000)
                     resetState()
                     continue
                 }
                 if (curState == APP_STATE.LOSE){
-                    glyphMatrixManager.setMatrixFrame(loseFrame.render())
+                    setMatrixFrame(context, glyphMatrixManager, loseFrame.render())
                     delay(1000)
                     resetState()
                     continue

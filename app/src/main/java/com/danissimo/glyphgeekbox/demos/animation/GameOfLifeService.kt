@@ -30,7 +30,7 @@ class GameOfLifeService : GlyphMatrixService("Game of Life") {
                 val frame = updateAndGetFrame()
 
                 withContext(Dispatchers.Main) {
-                    glyphMatrixManager.setMatrixFrame(frame)
+                    setMatrixFrame(context, glyphMatrixManager, frame)
                 }
 
                 delay(200L) // Slow down for visibility

@@ -3,11 +3,11 @@ package com.danissimo.glyphgeekbox
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -16,20 +16,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.danissimo.glyphgeekbox.ui.UltimateSettingsActivity
 import com.danissimo.glyphgeekbox.ui.theme.NothingAndroidSDKDemoTheme
+import com.danissimo.glyphgeekbox.utils.SettingsManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +52,7 @@ data class MiniApp(
     val nameRes: Int,
     val descriptionRes: Int,
     val iconRes: Int,
+    val isScrollingText: Boolean = false,
     val onSettingsClick: (() -> Unit)? = null
 )
 
@@ -67,9 +71,15 @@ fun SetupGuideScreen(modifier: Modifier = Modifier) {
         MiniApp(R.string.toy_name_white_noise, R.string.toy_summary_white_noise, R.drawable.white_noise_thumbnail),
         MiniApp(R.string.toy_name_mandelbrot, R.string.toy_summary_mandelbrot, R.drawable.mandelbrot_thumbnail),
         MiniApp(R.string.toy_name_charge, R.string.toy_summary_charge, R.drawable.charge_thumbnail),
-        MiniApp(R.string.toy_name_ultimate_key, R.string.toy_summary_ultimate_key, R.drawable.ultimate_essential_thumbnail) {
-            context.startActivity(Intent(context, UltimateSettingsActivity::class.java))
-        },
+        MiniApp(R.string.toy_name_scrolling_text, R.string.toy_summary_scrolling_text, R.drawable.scrolling_text_thumbnail, isScrollingText = true),
+        MiniApp(
+            nameRes = R.string.toy_name_ultimate_key,
+            descriptionRes = R.string.toy_summary_ultimate_key,
+            iconRes = R.drawable.ultimate_essential_thumbnail,
+            onSettingsClick = {
+                context.startActivity(Intent(context, UltimateSettingsActivity::class.java))
+            }
+        ),
     )
 
     Column(
@@ -169,10 +179,17 @@ fun StepSection(title: String, description: String) {
 
 @Composable
 fun AdbCommandBox(command: String) {
+    val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
+    
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp)),
+            .clip(RoundedCornerShape(8.dp))
+            .clickable {
+                clipboardManager.setText(AnnotatedString(command))
+                Toast.makeText(context, "Command copied to clipboard", Toast.LENGTH_SHORT).show()
+            },
         color = Color(0xFF2B2B2B)
     ) {
         Text(
@@ -187,6 +204,9 @@ fun AdbCommandBox(command: String) {
 
 @Composable
 fun MiniAppItem(app: MiniApp) {
+    val context = LocalContext.current
+    var scrollingText by remember { mutableStateOf(if (app.isScrollingText) SettingsManager.getScrollingText(context) else "") }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -195,49 +215,67 @@ fun MiniAppItem(app: MiniApp) {
         shape = RoundedCornerShape(12.dp),
         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
     ) {
-        Row(
-            modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Surface(
-                modifier = Modifier.size(52.dp),
-                shape = RoundedCornerShape(12.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant
+        Column {
+            Row(
+                modifier = Modifier
+                    .padding(12.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Image(
-                    painter = painterResource(id = app.iconRes),
-                    contentDescription = null,
-                    modifier = Modifier.padding(8.dp)
-                )
-            }
-            
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = stringResource(app.nameRes),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = stringResource(app.descriptionRes),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-
-            if (app.onSettingsClick != null) {
-                FilledTonalIconButton(
-                    onClick = app.onSettingsClick,
-                    modifier = Modifier.size(40.dp)
+                Surface(
+                    modifier = Modifier.size(52.dp),
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Settings",
-                        modifier = Modifier.size(20.dp)
+                    Image(
+                        painter = painterResource(id = app.iconRes),
+                        contentDescription = null,
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = stringResource(app.nameRes),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = stringResource(app.descriptionRes),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+
+                if (app.onSettingsClick != null) {
+                    FilledTonalIconButton(
+                        onClick = app.onSettingsClick,
+                        modifier = Modifier.size(40.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings",
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                }
+            }
+
+            if (app.isScrollingText) {
+                OutlinedTextField(
+                    value = scrollingText,
+                    onValueChange = {
+                        scrollingText = it
+                        SettingsManager.saveScrollingText(context, it)
+                    },
+                    label = { Text("Custom Text") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp)
+                        .padding(bottom = 12.dp),
+                    singleLine = true
+                )
             }
         }
     }

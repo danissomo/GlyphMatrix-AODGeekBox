@@ -13,9 +13,8 @@ import android.util.Log
 import com.nothing.ketchum.Common
 import com.nothing.ketchum.Glyph
 import com.nothing.ketchum.GlyphMatrixManager
-import com.nothing.ketchum.GlyphManager
 import com.nothing.ketchum.GlyphToy
-
+import com.danissimo.glyphgeekbox.utils.generate_all_circle_points
 abstract class GlyphMatrixService(private val tag: String) : Service() {
 
     private val buttonPressedHandler = object : Handler(Looper.getMainLooper()) {
@@ -92,6 +91,28 @@ abstract class GlyphMatrixService(private val tag: String) : Service() {
         return false
     }
 
+    fun setMatrixFrame(context: Context, mm: GlyphMatrixManager, array: IntArray) {
+        // add resize for circular array
+        val mLength = Common.getDeviceMatrixLength()
+        if (array.size !=  mLength*  mLength) {
+
+            val points = generate_all_circle_points(mLength)
+            var newArray = IntArray(mLength*mLength)
+            var i = 0
+            for ( p in points ) if (i < array.size)
+                newArray[p.second*mLength + p.first] = array[i++]
+            lastFrame = newArray
+        }else lastFrame =  array
+        mm.setMatrixFrame(array)
+        notifyWidget(context)
+    }
+
+    private fun notifyWidget(context: Context) {
+        val intent = Intent("com.danissimo.glyphgeekbox.ACTION_UPDATE_WIDGET")
+        intent.setPackage(context.packageName)
+        context.sendBroadcast(intent)
+    }
+
     open fun performOnServiceConnected(context: Context, glyphMatrixManager: GlyphMatrixManager) {}
 
     open fun performOnServiceDisconnected(context: Context) {}
@@ -100,9 +121,10 @@ abstract class GlyphMatrixService(private val tag: String) : Service() {
     open fun onTouchPointLongPress() {}
     open fun onTouchPointReleased() {}
 
-    private companion object {
+    companion object {
         private val LOG_TAG = GlyphMatrixService::class.java.simpleName
         private const val KEY_DATA = "data"
+        var lastFrame : IntArray? = null
     }
 
 }

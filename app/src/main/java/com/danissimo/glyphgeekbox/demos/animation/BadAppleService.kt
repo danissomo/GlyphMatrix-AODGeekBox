@@ -36,7 +36,7 @@ class BadAppleService : GlyphMatrixService("Bad-apple-demo") {
                 val duration = frames[frame].first
 
                 uiScope.launch {
-                    glyphMatrixManager.setMatrixFrame(array)
+                    setMatrixFrame(context, glyphMatrixManager, array)
                 }
                 
                 delay(duration)

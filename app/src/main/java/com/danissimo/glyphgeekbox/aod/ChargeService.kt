@@ -85,7 +85,7 @@ class ChargeService : GlyphMatrixService("Animation-Demo") {
                 if (buffer == null) continue
                 drawChargeBar(buffer)
                 uiScope.launch {
-                    glyphMatrixManager.setMatrixFrame(buffer)
+                    setMatrixFrame(context, glyphMatrixManager, buffer)
                 }
                 // wait a bit
                 delay(1000)

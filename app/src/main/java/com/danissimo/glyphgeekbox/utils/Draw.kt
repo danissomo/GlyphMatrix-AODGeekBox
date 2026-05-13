@@ -30,3 +30,21 @@ fun generate_circle_points(R: Int, Xc : Int, Yc : Int): List<Pair<Int, Int>> {
     }
     return  res.distinct()
 }
+
+fun generate_all_circle_points(D: Int): List<Pair<Int, Int>> {
+    val res = ArrayList<Pair<Int, Int>>()
+    val radius = D / 2.0
+    val centerX = (D - 1) / 2.0
+    val centerY = (D - 1) / 2.0
+
+    for (y in 0 until D) {
+        for (x in 0 until D) {
+            val dx = x - centerX
+            val dy = y - centerY
+            if (dx * dx + dy * dy <= radius * radius) {
+                res.add(x to y)
+            }
+        }
+    }
+    return res
+}

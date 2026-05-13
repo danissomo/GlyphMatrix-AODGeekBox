@@ -7,6 +7,7 @@ object SettingsManager {
     private const val PREFS_NAME = "ultimate_key_settings"
     private const val KEY_ANIMATION_ORDER = "animation_order"
     private const val KEY_ENABLED_ANIMATIONS = "enabled_animations"
+    private const val KEY_SCROLLING_TEXT = "scrolling_text"
 
     val allAnimations = listOf(
         "AnimationDemo",
@@ -17,7 +18,8 @@ object SettingsManager {
         "Pong",
         "WhiteNoise",
         "Mandelbrot",
-        "Charge"
+        "Charge",
+        "ScrollingText"
     )
 
     fun getAnimationOrder(context: Context): List<String> {
@@ -43,13 +45,21 @@ object SettingsManager {
         
         val filtered = savedEnabled.filter { it in allAnimations }.toMutableSet()
         
-        // По желанию: можно автоматически включать новые анимации, если их еще нет в настройках
-        // Но даже без этого они теперь будут отображаться в списке (как выключенные)
         return filtered
     }
 
     fun saveEnabledAnimations(context: Context, enabled: Set<String>) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putStringSet(KEY_ENABLED_ANIMATIONS, enabled).apply()
+    }
+
+    fun getScrollingText(context: Context): String {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return prefs.getString(KEY_SCROLLING_TEXT, "NOTHING") ?: "NOTHING"
+    }
+
+    fun saveScrollingText(context: Context, text: String) {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putString(KEY_SCROLLING_TEXT, text).apply()
     }
 }
