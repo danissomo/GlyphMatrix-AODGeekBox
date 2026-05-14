@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.danissimo.glyphgeekbox.ui.AboutActivity
 import com.danissimo.glyphgeekbox.ui.UltimateSettingsActivity
 import com.danissimo.glyphgeekbox.ui.theme.NothingAndroidSDKDemoTheme
 import com.danissimo.glyphgeekbox.utils.SettingsManager
@@ -53,6 +54,7 @@ data class MiniApp(
     val descriptionRes: Int,
     val iconRes: Int,
     val isScrollingText: Boolean = false,
+    val isAnalogClock: Boolean = false,
     val onSettingsClick: (() -> Unit)? = null
 )
 
@@ -72,6 +74,7 @@ fun SetupGuideScreen(modifier: Modifier = Modifier) {
         MiniApp(R.string.toy_name_mandelbrot, R.string.toy_summary_mandelbrot, R.drawable.mandelbrot_thumbnail),
         MiniApp(R.string.toy_name_charge, R.string.toy_summary_charge, R.drawable.charge_thumbnail),
         MiniApp(R.string.toy_name_scrolling_text, R.string.toy_summary_scrolling_text, R.drawable.scrolling_text_thumbnail, isScrollingText = true),
+        MiniApp(R.string.toy_name_analog_clock, R.string.toy_summary_analog_clock, R.drawable.clock_thumbnail, isAnalogClock = true),
         MiniApp(
             nameRes = R.string.toy_name_ultimate_key,
             descriptionRes = R.string.toy_summary_ultimate_key,
@@ -159,6 +162,16 @@ fun SetupGuideScreen(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.secondary
         )
+
+        Button(
+            onClick = {
+                context.startActivity(Intent(context, AboutActivity::class.java))
+            },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
+        ) {
+            Text(text = stringResource(R.string.about_app))
+        }
     }
 }
 
@@ -206,6 +219,7 @@ fun AdbCommandBox(command: String) {
 fun MiniAppItem(app: MiniApp) {
     val context = LocalContext.current
     var scrollingText by remember { mutableStateOf(if (app.isScrollingText) SettingsManager.getScrollingText(context) else "") }
+    var isCircularClock by remember { mutableStateOf(if (app.isAnalogClock) SettingsManager.getClockType(context) else false) }
 
     Surface(
         modifier = Modifier
@@ -246,6 +260,24 @@ fun MiniAppItem(app: MiniApp) {
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                }
+
+                if (app.isAnalogClock) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+
+                        Text("Lines", style = MaterialTheme.typography.bodySmall)
+                        Switch(
+                            checked = isCircularClock,
+                            onCheckedChange = {
+                                isCircularClock = it
+                                SettingsManager.setClockType(context, it)
+                            }
+                        )
+                        Text("Circular", style = MaterialTheme.typography.bodySmall)
+                    }
                 }
 
                 if (app.onSettingsClick != null) {

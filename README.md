@@ -2,6 +2,7 @@ Glyph GeekBox
 ====================
 
 ![Android CI](https://github.com/danissomo/GlyphMatrix-AODGeekBox/actions/workflows/android.yml/badge.svg)
+![GitHub Release](https://img.shields.io/github/v/release/danissomo/GlyphMatrix-AODGeekBox)
 
 Target: Nothing Phone 4a pro
 
@@ -19,6 +20,7 @@ This project is a collection of Glyph Matrix toys and tools:
 - `Pong` - circular pong game
 - `Charge` - show charging wattage and percent when unplugged
 - `Scrolling Text` - Say hello, express your feelings!
+- `Analog Clock` - 2 types of analog clock
 
 <p align="center">
 <img src="images/img1.jpg" alt="drawing" width="200"/>

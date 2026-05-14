@@ -1,6 +1,7 @@
 package com.danissimo.glyphgeekbox.aod
 
 import android.content.Context
+import android.util.Log
 import com.danissimo.glyphgeekbox.demos.GlyphMatrixService
 import com.danissimo.glyphgeekbox.utils.SettingsManager
 import com.nothing.ketchum.Common
@@ -13,6 +14,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import com.danissimo.glyphgeekbox.utils.getTextWidth
 
 class ScrollingTextService : GlyphMatrixService("Scrolling-Text") {
 
@@ -32,12 +34,11 @@ class ScrollingTextService : GlyphMatrixService("Scrolling-Text") {
             while (isActive) {
                 val text = SettingsManager.getScrollingText(context)
                 if (text.isEmpty()) continue
-                val textWidth = text.length * 7
+                val textWidth = getTextWidth(text)
                 val matrixObj = GlyphMatrixObject.Builder()
                     .setText(text)
                     .setPosition(scrollX, 3) // Roughly centered vertically
                     .build()
-
                 val frame = GlyphMatrixFrame.Builder()
                     .addTop(matrixObj)
                     .build(context)

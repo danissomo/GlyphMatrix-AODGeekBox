@@ -5,11 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import com.danissimo.glyphgeekbox.aod.ChargeService
-import com.danissimo.glyphgeekbox.aod.ScrollingTextService
 import com.nothing.ketchum.GlyphMatrixManager
 import com.danissimo.glyphgeekbox.demos.animation.*
 import com.danissimo.glyphgeekbox.games.*
+import com.danissimo.glyphgeekbox.aod.*
 import com.danissimo.glyphgeekbox.utils.SettingsManager
 
 /**
@@ -107,6 +106,7 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
             "Mandelbrot" -> MandelbrotService()
             "Charge" -> ChargeService()
             "ScrollingText" -> ScrollingTextService()
+            "AnalogClock" -> AnalogClockService()
             else -> AnimationDemoService()
         }
         

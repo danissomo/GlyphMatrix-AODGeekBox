@@ -37,6 +37,9 @@
     <string name="toy_name_scrolling_text">Scrolling Text</string>
     <string name="toy_summary_scrolling_text">Say hello, express your feelings!</string>
 
+    <string name="toy_name_analog_clock">Analog Clock</string>
+    <string name="toy_summary_analog_clock">Analog clock</string>
+
     <string name="accessibility_service_description">Service to react to Essential Key (TV_INPUT_COMPONENT_2).</string>
 
     <string name="setup_guide_title">Setup Guide</string>
@@ -50,4 +53,11 @@
 
     <string name="mini_apps_title">Available Toys &amp; Tools</string>
     <string name="widget_label">Glyph AOD Settings</string>
+
+    <string name="about_app">About App</string>
+    <string name="app_description">Glyph GeekBox is a set of some geek stuff for Glyph Matrix. Also, it contains some useful widgets. This app target is Nothing phone 4(a) pro, but some toys are scalable.</string>
+    <string name="github_link">GitHub Repository</string>
+    <string name="telegram_link">Telegram</string>
+    <string name="latest_release">Latest Release</string>
+    <string name="version_format">Version: %1$s</string>
 </resources>

@@ -19,7 +19,8 @@ object SettingsManager {
         "WhiteNoise",
         "Mandelbrot",
         "Charge",
-        "ScrollingText"
+        "ScrollingText",
+        "AnalogClock"
     )
 
     fun getAnimationOrder(context: Context): List<String> {
@@ -56,6 +57,16 @@ object SettingsManager {
     fun getScrollingText(context: Context): String {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         return prefs.getString(KEY_SCROLLING_TEXT, "NOTHING") ?: "NOTHING"
+    }
+
+    fun getClockType(context: Context) : Boolean  {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return prefs.getBoolean("clock_type", false)
+    }
+
+    fun setClockType(context: Context, value: Boolean) {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putBoolean("clock_type", value).apply()
     }
 
     fun saveScrollingText(context: Context, text: String) {
