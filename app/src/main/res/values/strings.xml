@@ -34,6 +34,9 @@
     <string name="toy_name_charge">Charge</string>
     <string name="toy_summary_charge">Show charge power and percent</string>
 
+    <string name="toy_name_status_bar">Status Bar</string>
+    <string name="toy_summary_status_bar">Show VPN, WiFi, Mobile and Battery status</string>
+
     <string name="toy_name_scrolling_text">Scrolling Text</string>
     <string name="toy_summary_scrolling_text">Say hello, express your feelings!</string>
 

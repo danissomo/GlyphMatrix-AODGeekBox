@@ -4,6 +4,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import com.nothing.ketchum.GlyphMatrixManager
 import com.danissimo.glyphgeekbox.demos.animation.*
@@ -22,6 +25,24 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
     // Текущий активный "контроллер" логики
     private var currentLogicController: GlyphMatrixService? = null
 
+    private val autoCycleHandler = Handler(Looper.getMainLooper())
+    private val autoCycleRunnable = object : Runnable {
+        override fun run() {
+            if (matrixManager != null && SettingsManager.getAutoCycleEnabled(this@UltimateKeyService)) {
+                Log.d("UltimateKeyService", "Auto-switching mode...")
+                switchMode()
+            }
+        }
+    }
+
+    // Слушатель изменений настроек для мгновенной реакции
+    private val prefsListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == "auto_cycle_enabled" || key == "auto_cycle_interval") {
+            Log.d("UltimateKeyService", "Settings changed ($key), updating cycle timer...")
+            startAutoCycleIfNeeded()
+        }
+    }
+
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == ACTION_SWITCH_MODE) {
@@ -34,22 +55,49 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
         super.onCreate()
         val filter = IntentFilter(ACTION_SWITCH_MODE)
         registerReceiver(receiver, filter, Context.RECEIVER_EXPORTED)
+        
+        // Регистрируем слушатель настроек
+        getSharedPreferences("ultimate_key_settings", Context.MODE_PRIVATE)
+            .registerOnSharedPreferenceChangeListener(prefsListener)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(receiver)
+        
+        // Отписываемся от настроек
+        getSharedPreferences("ultimate_key_settings", Context.MODE_PRIVATE)
+            .unregisterOnSharedPreferenceChangeListener(prefsListener)
+            
+        stopAutoCycle()
         stopCurrentLogic()
     }
 
     override fun performOnServiceConnected(context: Context, glyphMatrixManager: GlyphMatrixManager) {
         matrixManager = glyphMatrixManager
         startLogicForMode(currentModeIndex)
+        startAutoCycleIfNeeded()
     }
 
     override fun performOnServiceDisconnected(context: Context) {
+        stopAutoCycle()
         stopCurrentLogic()
         matrixManager = null
+    }
+
+    private fun startAutoCycleIfNeeded() {
+        autoCycleHandler.removeCallbacks(autoCycleRunnable)
+        if (SettingsManager.getAutoCycleEnabled(this)) {
+            val intervalSeconds = SettingsManager.getAutoCycleInterval(this)
+            autoCycleHandler.postDelayed(autoCycleRunnable, intervalSeconds * 1000L)
+            Log.d("UltimateKeyService", "Auto-cycle scheduled in $intervalSeconds seconds")
+        } else {
+            Log.d("UltimateKeyService", "Auto-cycle disabled")
+        }
+    } 
+
+    private fun stopAutoCycle() {
+        autoCycleHandler.removeCallbacks(autoCycleRunnable)
     }
 
     private fun switchMode() {
@@ -73,6 +121,9 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
         
         // 5. Запускаем новый контроллер
         startLogicForMode(currentModeIndex)
+
+        // 6. Планируем следующее авто-переключение
+        startAutoCycleIfNeeded()
     }
 
     private fun getEnabledAnimationsList(): List<String> {
@@ -107,6 +158,7 @@ class UltimateKeyService : GlyphMatrixService("Ultimate-Key-Service") {
             "Charge" -> ChargeService()
             "ScrollingText" -> ScrollingTextService()
             "AnalogClock" -> AnalogClockService()
+            "StatusBar" -> StatusBarService()
             else -> AnimationDemoService()
         }
         

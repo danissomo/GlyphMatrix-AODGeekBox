@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -51,6 +52,10 @@ class UltimateSettingsActivity : ComponentActivity() {
     fun SettingsScreen(modifier: Modifier = Modifier) {
         val context = this@UltimateSettingsActivity
         
+        // Load initial values
+        var autoCycleEnabled by remember { mutableStateOf(SettingsManager.getAutoCycleEnabled(context)) }
+        var autoCycleInterval by remember { mutableStateOf(SettingsManager.getAutoCycleInterval(context).toFloat()) }
+
         // Load initial order and use mutableStateListOf for efficient reordering
         val initialOrder = remember { SettingsManager.getAnimationOrder(context) }
         val order = remember { mutableStateListOf<String>().apply { addAll(initialOrder) } }
@@ -65,6 +70,73 @@ class UltimateSettingsActivity : ComponentActivity() {
         }
 
         Column(modifier = modifier.fillMaxSize().padding(16.dp)) {
+            // Auto-Cycle Settings
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surfaceColorAtElevation(2.dp)
+                ),
+                shape = RoundedCornerShape(20.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                "Automatic Cycling",
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                "Automatically switch modes",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Switch(
+                            checked = autoCycleEnabled,
+                            onCheckedChange = {
+                                autoCycleEnabled = it
+                                SettingsManager.setAutoCycleEnabled(context, it)
+                            }
+                        )
+                    }
+                    
+                    AnimatedVisibility(visible = autoCycleEnabled) {
+                        Column {
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    "Switch Interval",
+                                    style = MaterialTheme.typography.bodyMedium
+                                )
+                                Text(
+                                    "${autoCycleInterval.toInt()}s",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                            Slider(
+                                value = autoCycleInterval,
+                                onValueChange = { autoCycleInterval = it },
+                                onValueChangeFinished = {
+                                    SettingsManager.setAutoCycleInterval(context, autoCycleInterval.toInt())
+                                },
+                                valueRange = 5f..120f,
+                                steps = 22 // 5s increments
+                            )
+                        }
+                    }
+                }
+            }
+
             Text(
                 "Sequence & Visibility",
                 style = MaterialTheme.typography.titleLarge,

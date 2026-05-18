@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- This permission is required to be able access the Glyph Matrix -->
     <uses-permission android:name="com.nothing.ketchum.permission.ENABLE" />
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
         tools:ignore="ProtectedPermissions" />
 
-    <uses-permission android:name="android.permission.health.READ_STEPS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NothingAndroidSDKDemo">
 
-        <!-- Nothing API Key -->
         <meta-data
             android:name="NothingKey"
             android:value="test" />
@@ -30,7 +29,6 @@
             android:theme="@style/Theme.NothingAndroidSDKDemo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -66,7 +64,6 @@
                 android:resource="@xml/aod_widget_info" />
         </receiver>
 
-        <!-- Glyph Matrix Widgets -->
         <receiver
             android:name=".GlyphMatrixWidget1x1"
             android:exported="true"
@@ -105,8 +102,6 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
-
-        <!-- Animation Demo Service -->
         <service
             android:name=".demos.animation.AnimationDemoService"
             android:exported="true"
@@ -114,7 +109,6 @@
             <intent-filter>
                 <action android:name="com.nothing.glyph.TOY" />
             </intent-filter>
-
             <meta-data
                 android:name="com.nothing.glyph.toy.name"
                 android:resource="@string/toy_name_animation" />
@@ -129,169 +123,6 @@
                 android:value="1"/>
         </service>
 
-        <!-- Bad Apple Service -->
-        <service
-            android:name=".demos.animation.BadAppleService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_bad_apple" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/badapple_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_bad_apple" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.aod_support"
-                android:value="1"/>
-        </service>
-
-        <!-- Animation Perlin Noise Service -->
-        <service
-            android:name=".demos.animation.PerlNoiseService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_perlin" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/perlin_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_perlin" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.aod_support"
-                android:value="1"/>
-        </service>
-
-        <!-- Animation Game Of Life Service -->
-        <service
-            android:name=".demos.animation.GameOfLifeService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_game_of_life" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/game_of_life_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_game_of_life" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.aod_support"
-                android:value="1"/>
-        </service>
-
-        <!-- Animation Liquid Simulation Service -->
-        <service
-            android:name=".demos.animation.LiquidSimulationService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_liquid_simulation" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/liquid_sim_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_liquid_simulation" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.aod_support"
-                android:value="1"/>
-        </service>
-
-        <!-- Animation White Noise Service -->
-        <service
-            android:name=".demos.animation.WhiteNoiseService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_white_noise" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/white_noise_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_white_noise" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.aod_support"
-                android:value="1"/>
-        </service>
-
-        <!-- Pong Game Service -->
-        <service
-            android:name=".games.PongService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_pong" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/pong_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_pong" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.aod_support"
-                android:value="1"/>
-        </service>
-
-        <!-- Mandelbrot Set Service -->
-        <service
-            android:name=".demos.animation.MandelbrotService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="com.nothing.glyph.TOY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="com.nothing.glyph.toy.name"
-                android:resource="@string/toy_name_mandelbrot" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.image"
-                android:resource="@drawable/mandelbrot_thumbnail" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.summary"
-                android:resource="@string/toy_summary_mandelbrot" />
-            <meta-data
-                android:name="com.nothing.glyph.toy.aod_support"
-                android:value="1"/>
-        </service>
-
-
-        <!-- Charge Service -->
         <service
             android:name=".aod.ChargeService"
             android:exported="true"
@@ -299,7 +130,6 @@
             <intent-filter>
                 <action android:name="com.nothing.glyph.TOY" />
             </intent-filter>
-
             <meta-data
                 android:name="com.nothing.glyph.toy.name"
                 android:resource="@string/toy_name_charge" />
@@ -314,7 +144,27 @@
                 android:value="1"/>
         </service>
 
-        <!-- Scrolling Text Service -->
+        <service
+            android:name=".aod.StatusBarService"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.nothing.glyph.TOY" />
+            </intent-filter>
+            <meta-data
+                android:name="com.nothing.glyph.toy.name"
+                android:resource="@string/toy_name_status_bar" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.image"
+                android:resource="@drawable/statusbar_thumbnail" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.summary"
+                android:resource="@string/toy_summary_status_bar" />
+            <meta-data
+                android:name="com.nothing.glyph.toy.aod_support"
+                android:value="1"/>
+        </service>
+
         <service
             android:name=".aod.ScrollingTextService"
             android:exported="true"
@@ -322,7 +172,6 @@
             <intent-filter>
                 <action android:name="com.nothing.glyph.TOY" />
             </intent-filter>
-
             <meta-data
                 android:name="com.nothing.glyph.toy.name"
                 android:resource="@string/toy_name_scrolling_text" />
@@ -337,8 +186,6 @@
                 android:value="1"/>
         </service>
 
-
-        <!-- Analog Clock Service -->
         <service
             android:name=".aod.AnalogClockService"
             android:exported="true"
@@ -346,7 +193,6 @@
             <intent-filter>
                 <action android:name="com.nothing.glyph.TOY" />
             </intent-filter>
-
             <meta-data
                 android:name="com.nothing.glyph.toy.name"
                 android:resource="@string/toy_name_analog_clock" />

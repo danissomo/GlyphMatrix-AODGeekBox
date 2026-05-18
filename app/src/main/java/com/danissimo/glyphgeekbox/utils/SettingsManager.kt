@@ -10,6 +10,8 @@ object SettingsManager {
     private const val KEY_ANIMATION_ORDER = "animation_order"
     private const val KEY_ENABLED_ANIMATIONS = "enabled_animations"
     private const val KEY_SCROLLING_TEXT = "scrolling_text"
+    private const val KEY_AUTO_CYCLE_ENABLED = "auto_cycle_enabled"
+    private const val KEY_AUTO_CYCLE_INTERVAL = "auto_cycle_interval"
 
     val allAnimations = listOf(
         "AnimationDemo",
@@ -22,7 +24,8 @@ object SettingsManager {
         "Mandelbrot",
         "Charge",
         "ScrollingText",
-        "AnalogClock"
+        "AnalogClock",
+        "StatusBar"
     )
 
     fun getAnimationOrder(context: Context): List<String> {
@@ -54,6 +57,26 @@ object SettingsManager {
     fun saveEnabledAnimations(context: Context, enabled: Set<String>) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putStringSet(KEY_ENABLED_ANIMATIONS, enabled).apply()
+    }
+
+    fun getAutoCycleEnabled(context: Context): Boolean {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return prefs.getBoolean(KEY_AUTO_CYCLE_ENABLED, false)
+    }
+
+    fun setAutoCycleEnabled(context: Context, enabled: Boolean) {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putBoolean(KEY_AUTO_CYCLE_ENABLED, enabled).apply()
+    }
+
+    fun getAutoCycleInterval(context: Context): Int {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        return prefs.getInt(KEY_AUTO_CYCLE_INTERVAL, 30) // Default 30 seconds
+    }
+
+    fun setAutoCycleInterval(context: Context, interval: Int) {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit().putInt(KEY_AUTO_CYCLE_INTERVAL, interval).apply()
     }
 
     fun getScrollingText(context: Context): String {

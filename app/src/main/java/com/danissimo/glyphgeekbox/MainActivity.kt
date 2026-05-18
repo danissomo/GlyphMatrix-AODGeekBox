@@ -75,6 +75,7 @@ fun SetupGuideScreen(modifier: Modifier = Modifier) {
         MiniApp(R.string.toy_name_charge, R.string.toy_summary_charge, R.drawable.charge_thumbnail),
         MiniApp(R.string.toy_name_scrolling_text, R.string.toy_summary_scrolling_text, R.drawable.scrolling_text_thumbnail, isScrollingText = true),
         MiniApp(R.string.toy_name_analog_clock, R.string.toy_summary_analog_clock, R.drawable.clock_thumbnail, isAnalogClock = true),
+        MiniApp(R.string.toy_name_status_bar, R.string.toy_summary_status_bar, R.drawable.statusbar_thumbnail),
         MiniApp(
             nameRes = R.string.toy_name_ultimate_key,
             descriptionRes = R.string.toy_summary_ultimate_key,
