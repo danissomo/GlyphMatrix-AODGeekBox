@@ -2,9 +2,11 @@ package com.danissimo.glyphgeekbox.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
 
 object SettingsManager {
     private const val PREFS_NAME = "ultimate_key_settings"
+    private const val WIDGET_PREFS_NAME = "glyph_widget_settings"
     private const val KEY_ANIMATION_ORDER = "animation_order"
     private const val KEY_ENABLED_ANIMATIONS = "enabled_animations"
     private const val KEY_SCROLLING_TEXT = "scrolling_text"
@@ -72,5 +74,32 @@ object SettingsManager {
     fun saveScrollingText(context: Context, text: String) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit().putString(KEY_SCROLLING_TEXT, text).apply()
+    }
+
+    // Widget Settings
+    private fun getWidgetPrefs(context: Context) = context.getSharedPreferences(WIDGET_PREFS_NAME, Context.MODE_PRIVATE)
+
+    fun getWidgetSpacing(context: Context, appWidgetId: Int): Int {
+        return getWidgetPrefs(context).getInt("spacing_$appWidgetId", 2)
+    }
+
+    fun saveWidgetSpacing(context: Context, appWidgetId: Int, spacing: Int) {
+        getWidgetPrefs(context).edit().putInt("spacing_$appWidgetId", spacing).apply()
+    }
+
+    fun getWidgetRadius(context: Context, appWidgetId: Int): Int {
+        return getWidgetPrefs(context).getInt("radius_$appWidgetId", 4)
+    }
+
+    fun saveWidgetRadius(context: Context, appWidgetId: Int, radius: Int) {
+        getWidgetPrefs(context).edit().putInt("radius_$appWidgetId", radius).apply()
+    }
+
+    fun getWidgetBackground(context: Context, appWidgetId: Int): Int {
+        return getWidgetPrefs(context).getInt("bg_$appWidgetId", Color.parseColor("#2B2B2B"))
+    }
+
+    fun saveWidgetBackground(context: Context, appWidgetId: Int, color: Int) {
+        getWidgetPrefs(context).edit().putInt("bg_$appWidgetId", color).apply()
     }
 }
