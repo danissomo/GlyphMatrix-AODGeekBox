@@ -21,6 +21,7 @@ This project is a collection of Glyph Matrix toys and tools:
 - `Charge` - show charging wattage and percent when unplugged
 - `Scrolling Text` - Say hello, express your feelings!
 - `Analog Clock` - 2 types of analog clock
+- `Status Bar` - VPN, WiFi, Mobile, Battery, Volume
 
 <p align="center">
 <img src="images/img1.jpg" alt="drawing" width="200"/>
